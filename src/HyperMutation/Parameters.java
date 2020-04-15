@@ -39,13 +39,16 @@ public class Parameters {
 	public static int numGenes;
 	public static int geneSize;
 
+	public static int[] CNF;
+	public static int nbvar;
+	public static int nbclauses;
+
 	/*******************************************************************************
 	 * CONSTRUCTORS *
 	 *******************************************************************************/
 
 	public Parameters(String parmfilename) throws java.io.IOException {
 
-		String readLine;
 		BufferedReader parmInput = new BufferedReader(new FileReader(parmfilename));
 
 		expID = parmInput.readLine().substring(30);// Experiment ID
@@ -80,7 +83,8 @@ public class Parameters {
 		mutationType = Integer.parseInt(parmInput.readLine().substring(30).trim());// 1 = Flip Bit
 
 		mutationRate = Double.parseDouble(parmInput.readLine().substring(30).trim());// from 0 to 1, Use "0" to turn off
-																						// mutation
+
+		// mutation
 
 		seed = Long.parseLong(parmInput.readLine().substring(30).trim());
 
@@ -91,6 +95,38 @@ public class Parameters {
 		// gives the number of bits in each chromosome.
 
 		parmInput.close();
+
+
+		try (BufferedReader br = new BufferedReader(new FileReader(dataInputFileName))) {
+			String line;
+			int clauseIndex = 0;
+			while ((line = br.readLine()) != null) {
+				line = line.trim();
+				if (line.length() == 0) {
+					continue;
+				}
+				switch (line.charAt(0)) {
+					case 'p':
+						String[] token = line.split("[\\s]+");
+						nbvar = Integer.parseInt(token[2]);
+						nbclauses = Integer.parseInt(token[3]);
+						CNF = new int[3 * nbclauses];
+						break;
+					case 'c':
+					case '%':
+					case '0':
+						break;
+				
+					default:
+						String[] vars = line.split("[\\s]+");
+						CNF[clauseIndex++] = Integer.parseInt(vars[0]);
+						CNF[clauseIndex++] = Integer.parseInt(vars[1]);
+						CNF[clauseIndex++] = Integer.parseInt(vars[2]);
+						break;
+				}
+			}
+		}
+
 
 		if (scaleType == 0 || scaleType == 2)
 			minORmax = "max";
