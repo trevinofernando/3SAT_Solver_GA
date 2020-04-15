@@ -39,8 +39,8 @@ public class ThreeSAT extends FitnessFunction{
 		boolean temp = false;
 		for (int i = 0; i< Parameters.numClauses; i++){
 			for (int j = 0; j < 3; j++){
-				temp = (X.chromo.charAt(clauses[i][j]) == '1');
-				if (temp ^ negation[i][j]){
+				temp = (X.chromo.charAt(Parameters.clauses[i][j]) == '1');
+				if (temp ^ Parameters.negation[i][j]){
 					X.rawFitness++;
 					break;
 				}
@@ -53,15 +53,15 @@ public class ThreeSAT extends FitnessFunction{
 	public void doPrintGenes(Chromo X, FileWriter output) throws java.io.IOException{
 
 		for (int i=0; i<Parameters.numVariables; i+=10)
-			Hwrite.right(i, 10, output);
+			Hwrite.left(i, 10, output);
+		output.write("\n");
 		for (int i=0; i<Parameters. numVariables; i+=10)
-			Hwrite.right('|', 10, output);
+			Hwrite.left("|", 10, output);
+		output.write("\n");
 		output.write(X.chromo);
+		output.write("\n");
 		output.write("   RawFitness");
 		output.write("\n        ");
-		for (int i=0; i<Parameters.numGenes; i++){
-			Hwrite.right(X.getPosIntGeneValue(i),11,output);
-		}
 		Hwrite.right((int) X.rawFitness,13,output);
 		output.write("\n\n");
 		return;

@@ -356,6 +356,7 @@ public class Search {
 			Hwrite.left(bestOfRunR, 4, summaryOutput);
 			Hwrite.right(bestOfRunG, 4, summaryOutput);
 
+			summaryOutput.write("\n");
 			problem.doPrintGenes(bestOfRunChromo, summaryOutput);
 
 			System.out.println(R + "\t" + "B" + "\t"+ (int)bestOfRunChromo.rawFitness);
@@ -363,6 +364,7 @@ public class Search {
 		} //End of a Run
 
 		Hwrite.left("B", 8, summaryOutput);
+		summaryOutput.write("\n");
 
 		problem.doPrintGenes(bestOverAllChromo, summaryOutput);
 

@@ -103,7 +103,7 @@ public class Chromo
 
 		case 1:     //  Replace with new random number
 
-			for (int j=0; j<Parameters.numVarables; j++){
+			for (int j=0; j<Parameters.numVariables; j++){
 				x = this.chromo.charAt(j);
 				randnum = Search.r.nextDouble();
 				if (randnum < Parameters.mutationRate){
@@ -148,6 +148,17 @@ public class Chromo
 			return(j);
 
 		case 2:     //  Tournament Selection
+			int t[] = new int[4];
+			t[0] = Search.r.nextInt(Parameters.popSize);
+			t[1] = Search.r.nextInt(Parameters.popSize);
+			if (Search.member[t[0]].proFitness < Search.member[t[1]].proFitness){
+				j = t[1];
+				t[1] = t[0];
+				t[0] = j;
+			}
+			if (Search.r.nextDouble()<0.6)
+				return t[0];
+			return t[1];
 
 		default:
 			System.out.println("ERROR - No selection method selected");
