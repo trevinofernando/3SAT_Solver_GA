@@ -33,13 +33,11 @@ public class Chromo
 		//  Set gene values to a randum sequence of 1's and 0's
 		char geneBit;
 		chromo = "";
-		for (int i=0; i<Parameters.numGenes; i++){
-			for (int j=0; j<Parameters.geneSize; j++){
-				randnum = Search.r.nextDouble();
-				if (randnum > 0.5) geneBit = '0';
-				else geneBit = '1';
-				this.chromo = chromo + geneBit;
-			}
+		for (int i=0; i<Parameters.numVariables; i++){
+			randnum = Search.r.nextDouble();
+			if (randnum > 0.5) geneBit = '0';
+			else geneBit = '1';
+			this.chromo = chromo + geneBit;
 		}
 
 		this.rawFitness = -1;   //  Fitness not yet evaluated
@@ -105,7 +103,7 @@ public class Chromo
 
 		case 1:     //  Replace with new random number
 
-			for (int j=0; j<(Parameters.geneSize * Parameters.numGenes); j++){
+			for (int j=0; j<Parameters.numVarables; j++){
 				x = this.chromo.charAt(j);
 				randnum = Search.r.nextDouble();
 				if (randnum < Parameters.mutationRate){
@@ -169,7 +167,7 @@ public class Chromo
 		case 1:     //  Single Point Crossover
 
 			//  Select crossover point
-			xoverPoint1 = 1 + (int)(Search.r.nextDouble() * (Parameters.numGenes * Parameters.geneSize-1));
+			xoverPoint1 = 1 + (int)(Search.r.nextDouble() * (Parameters.numVariables-1));
 
 			//  Create child chromosome from parental material
 			child1.chromo = parent1.chromo.substring(0,xoverPoint1) + parent2.chromo.substring(xoverPoint1);
@@ -177,9 +175,23 @@ public class Chromo
 			break;
 
 		case 2:     //  Two Point Crossover
-
+			System.out.println("This does nothing (2pt crossover)");
+			break;
 		case 3:     //  Uniform Crossover
-
+			child1.chromo = "";
+			child2.chromo = "";
+			for (int i = 0; i< Parameters.numVariables; i++){
+				if (Search.r.nextDouble()<0.5){
+					child1.chromo += parent1.chromo.charAt(i);
+					child2.chromo += parent2.chromo.charAt(i);
+				}
+				else{ 
+					child1.chromo += parent2.chromo.charAt(i);
+					child2.chromo += parent1.chromo.charAt(i);
+				}
+			}
+			break;
+		
 		default:
 			System.out.println("ERROR - Bad crossover method selected");
 		}

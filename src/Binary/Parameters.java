@@ -42,7 +42,7 @@ public class Parameters
 	public static int numClauses;
 	public static int numVariables;
 	public static int clauses[][];
-	public static int negation[][];
+	public static boolean negation[][];
 
 /*******************************************************************************
 *                              CONSTRUCTORS                                    *
@@ -85,18 +85,19 @@ public class Parameters
 		numVariables = sc.nextInt();
 		numClauses = sc.nextInt();
 		clauses = new int[numClauses][3];
-		negation = new int[numClauses][3];
+		negation = new boolean[numClauses][3];
 		for (int i = 0; i<numClauses; i++){
-			clauses[i][0] = negation[i][0] = 0;
-			clauses[i][1] = negation[i][1] = 0;
-			clauses[i][2] = negation[i][2] = 0;
+			for (int j = 0; j<3; j++){
+				clauses[i][j] = 0;
+				negation[i][j] = false;
+			}
 		}
 		int temp = 0;
 		for (int i = 0; i<numClauses; i++){
 			for (int j = 0; j<3; j++){
 				temp = sc.nextInt();
 				if (temp<0){
-					negation[i][j] = 1;
+					negation[i][j] = true;
 					temp*= -1;
 				}
 				clauses[i][j] = temp - 1;
