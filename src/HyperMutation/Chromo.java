@@ -60,18 +60,23 @@ public class Chromo implements Comparable<Chromo> {
 
 	public void doMutation() {
 
+		// Elitism flag check
+		double mutationRate = (Search.elitismFlag && this.rawFitness > Search.averageRawFitness)
+				? (Parameters.nbclauses - Search.averageRawFitness) * 100 / Parameters.nbclauses
+				: Parameters.mutationRate;
+
 		switch (Parameters.mutationType) {
 
-		case 1: // bit flip
-			for (int i=0; i< Parameters.numGenes; i++){				
-				if (Search.r.nextDouble() < Parameters.mutationRate){
-					this.chromo.set(i, 1 - this.chromo.get(i));
+			case 1: // bit flip
+				for (int i = 0; i < Parameters.numGenes; i++) {
+					if (Search.r.nextDouble() < mutationRate) {
+						this.chromo.set(i, 1 - this.chromo.get(i));
+					}
 				}
-			}
-			break;
+				break;
 
-		default:
-			System.out.println("ERROR - No mutation method selected");
+			default:
+				System.out.println("ERROR - No mutation method selected");
 		}
 	}
 
@@ -88,52 +93,48 @@ public class Chromo implements Comparable<Chromo> {
 
 		switch (Parameters.selectType) {
 
-		case 1: // Proportional Selection
-			randnum = Search.r.nextDouble();
-			for (j = 0; j < Parameters.popSize; j++) {
-				rWheel = rWheel + Search.member[j].proFitness;
-				if (randnum < rWheel)
-					return (j);
-			}
-			break;
+			case 1: // Proportional Selection
+				randnum = Search.r.nextDouble();
+				for (j = 0; j < Parameters.popSize; j++) {
+					rWheel = rWheel + Search.member[j].proFitness;
+					if (randnum < rWheel)
+						return (j);
+				}
+				break;
 
-		case 3: // Random Selection
-			randnum = Search.r.nextDouble();
-			j = (int) (randnum * Parameters.popSize);
-			return (j);
-		case 2: // Tournament Selection
-			int temp;
-			int candidate[] = new int[4];
-			for (int i = 0; i < 4; ++i)
-				candidate[i] = (int) (Search.r.nextDouble() * Parameters.popSize);
-			for (int i = 3; i > 0; i--) {
-				for (j = 0; j < i; j++) {
-					if (Search.member[candidate[j]].proFitness > Search.member[candidate[j + 1]].proFitness) {
-						temp = candidate[j];
-						candidate[j] = candidate[j + 1];
-						candidate[j + 1] = temp;
+			case 3: // Random Selection
+				randnum = Search.r.nextDouble();
+				j = (int) (randnum * Parameters.popSize);
+				return (j);
+
+			case 2: // Tournament Selection
+				int temp;
+				int candidate[] = new int[4];
+				for (int i = 0; i < 4; ++i)
+					candidate[i] = (int) (Search.r.nextDouble() * Parameters.popSize);
+				for (int i = 3; i > 0; i--) {
+					for (j = 0; j < i; j++) {
+						if (Search.member[candidate[j]].proFitness > Search.member[candidate[j + 1]].proFitness) {
+							temp = candidate[j];
+							candidate[j] = candidate[j + 1];
+							candidate[j + 1] = temp;
+						}
 					}
 				}
-			}
-			for (int i = 3; i > 0; i--)
-				if (Search.r.nextDouble() < 0.6)
-					return candidate[i];
-			return candidate[0];
+				for (int i = 3; i > 0; i--)
+					if (Search.r.nextDouble() < 0.6)
+						return candidate[i];
+				return candidate[0];
 
+			/*
+			 * case 4: // Rank Selection Arrays.sort(Search.member); randnum =
+			 * Search.r.nextDouble(); k = (int) (randnum * ((Parameters.popSize *
+			 * (Parameters.popSize + 1)) / 2)); for (j = 0; j < Parameters.popSize; j++) {
+			 * rWheel = rWheel + j + 1; if (k < rWheel) return (j); } break;
+			 */
 
-		/*case 4: // Rank Selection
-			Arrays.sort(Search.member);
-			randnum = Search.r.nextDouble();
-			k = (int) (randnum * ((Parameters.popSize * (Parameters.popSize + 1)) / 2));
-			for (j = 0; j < Parameters.popSize; j++) {
-				rWheel = rWheel + j + 1;
-				if (k < rWheel)
-					return (j);
-			}
-			break;*/
-
-		default:
-			System.out.println("ERROR - No selection method selected");
+			default:
+				System.out.println("ERROR - No selection method selected");
 		}
 		return (-1);
 	}
@@ -144,22 +145,21 @@ public class Chromo implements Comparable<Chromo> {
 
 		switch (Parameters.xoverType) {
 
-		case 1: // Uniform Crossover (UX)
-			
-			for (int i=0; i< Parameters.numGenes; i++){				
-				if (Search.r.nextDouble() < 0.5){
-					child1.chromo.set(i, parent1.chromo.get(i));
-					child2.chromo.set(i, parent2.chromo.get(i));
-				}
-				else {
-					child1.chromo.set(i, parent2.chromo.get(i));
-					child2.chromo.set(i, parent1.chromo.get(i));
-				}
-			}
-			break;
+			case 1: // Uniform Crossover (UX)
 
-		default:
-			System.out.println("ERROR - Bad crossover method selected");
+				for (int i = 0; i < Parameters.numGenes; i++) {
+					if (Search.r.nextDouble() < 0.5) {
+						child1.chromo.set(i, parent1.chromo.get(i));
+						child2.chromo.set(i, parent2.chromo.get(i));
+					} else {
+						child1.chromo.set(i, parent2.chromo.get(i));
+						child2.chromo.set(i, parent1.chromo.get(i));
+					}
+				}
+				break;
+
+			default:
+				System.out.println("ERROR - Bad crossover method selected");
 		}
 
 		// Set fitness values back to zero
