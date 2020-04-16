@@ -1,18 +1,20 @@
 Experiment ID                :3SAT
 Problem Type                 :3SAT
-Data Input File Name         :../uf20-91/uf20-01.cnf
-Number of Runs               :3
-Generations per Run          :100
+Data Input File Name         :../data/uf100-01.cnf
+Number of Runs               :5
+Generations per Run          :500
 Population Size              :100
-Selection Method (1)         :2
-Fitness Scaling Type (2)     :0
+Selection Method (1)         :1
+Fitness Scaling Type (2)     :2
 Crossover Type (3)           :3
 Crossover Rate (4)           :0.8
 Mutation Type (5)            :1
-Mutation Rate (6)            :.02
+Mutation Rate (6)            :.005
 Random Number Seed           :75982
 Number of Genes/Points (7)   :8
-Size of Genes (18)           :9
+Size of Genes (8)            :9
+Random Immigration (9)       :0.90
+Immigration Period (10)      :100
 
 Notes:
 
@@ -39,3 +41,8 @@ Notes:
 
 8)	Determines number of bits in each gene.  Number of Genes times Size
 	gives the number of bits in each chromosome.
+
+9)	Amount of population to replace every __ generations, 0 to turn off
+
+
+10)	How often random immigration happens

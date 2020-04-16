@@ -68,6 +68,12 @@ public class Search {
 *                             STATIC METHODS                                   *
 *******************************************************************************/
 
+	public static void swap(int[] x, int i, int j){
+		int temp = x[i];
+		x[i] = x[j];
+		x[j] = temp;
+	}
+
 	public static void main(String[] args) throws java.io.IOException{
 
 		Calendar dateAndTime = Calendar.getInstance(); 
@@ -141,6 +147,23 @@ public class Search {
 
 			//	Begin Each Run
 			for (G=0; G<Parameters.generations; G++){
+				//	Random Immigration
+				if (G%Parameters.immigrationPeriod == 0){
+					int num = (int)(Parameters.popSize * Parameters.immigrationRate);
+					int index[] = new int[Parameters.popSize];
+					for (int i = 0; i < Parameters.popSize; i++)
+						index[i] = i;
+					int t;
+					int toReplace[] = new int[num];
+					for (int i = 0; i<num; i++){
+						t = r.nextInt(Parameters.popSize-i);
+						swap(index, t, num-i);
+						toReplace[i] = index[num-i];
+					}
+
+					for (int i = 0; i < num; i++)
+						member[toReplace[i]] = new Chromo();
+				}
 
 				sumProFitness = 0;
 				sumSclFitness = 0;

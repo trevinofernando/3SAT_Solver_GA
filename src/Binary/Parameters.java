@@ -43,6 +43,8 @@ public class Parameters
 	public static int numVariables;
 	public static int clauses[][];
 	public static boolean negation[][];
+	public static double immigrationRate;
+	public static int immigrationPeriod;
 
 /*******************************************************************************
 *                              CONSTRUCTORS                                    *
@@ -73,6 +75,8 @@ public class Parameters
 		seed = Long.parseLong(parmInput.readLine().substring(30).trim());
 		numGenes = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		geneSize = Integer.parseInt(parmInput.readLine().substring(30).trim());
+		immigrationRate = Double.parseDouble(parmInput.readLine().substring(30).trim());
+		immigrationPeriod = Integer.parseInt(parmInput.readLine().substring(30).trim());
 
 		parmInput.close();
 
@@ -140,6 +144,10 @@ public class Parameters
 		output.write("Random Number Seed           :  " + seed + "\n");
 		output.write("Number of Genes/Points       :  " + numGenes + "\n");
 		output.write("Size of Genes                :  " + geneSize + "\n");
+		output.write("Number of Genes/Points       :  " + numGenes + "\n");
+		output.write("Size of Genes                :  " + geneSize + "\n");
+		output.write("Random Immigration           :  " + immigrationRate + "\n");
+		output.write("Immigration Period           :  " + immigrationPeriod + "\n");
 
 		output.write("\n\n");
 
