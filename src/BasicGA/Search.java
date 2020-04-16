@@ -189,7 +189,7 @@ public class Search {
 
 
 				// Output generation statistics to screen
-				System.out.println(R + "\t" + G +  "\t" + (int)bestOfGenChromo.rawFitness + "\t" + averageRawFitness);
+				// System.out.println(R + "\t" + G +  "\t" + bestOfGenChromo.rawFitness + "\t" + averageRawFitness);
 
 
 		// *********************************************************************
@@ -268,6 +268,13 @@ public class Search {
 
 					break;
 
+				case 4: // Sutract for Minimization
+					for (int i = 0; i < Parameters.popSize; i++) {
+						member[i].sclFitness = Parameters.nbclauses - member[i].rawFitness;
+						sumSclFitness += member[i].sclFitness;
+					}
+					break;
+
 				default:
 					System.out.println("ERROR - No scaling method selected");
 				}
@@ -323,7 +330,15 @@ public class Search {
 				// lazy elitism
 				//Chromo.copyB2A(member[0], bestOfGenChromo);
 
-				System.out.println("Best Gen Assignment:  " + bestOfGenChromo.chromo + "\n");
+
+				if (bestOfGenChromo.rawFitness == 0) {
+					System.out.println("\n------------------------\nFound Optimal - Early Stop");
+					System.out.println(R + "\t" + G +  "\t" + bestOfGenChromo.rawFitness + "\t" + averageRawFitness);
+	
+					System.out.println("Best Gen Assignment:  " + bestOfGenChromo.chromo + "\n");
+					System.out.println("------------------------\n");
+					break;
+				}
 
 			} //  Repeat the above loop for each generation
 
@@ -332,7 +347,7 @@ public class Search {
 
 			problem.doPrintGenes(bestOfRunChromo, summaryOutput);
 
-			System.out.println(R + "\t" + "B" + "\t"+ (int)bestOfRunChromo.rawFitness);
+			System.out.println(R + "\t" + "B" + "\t"+ bestOfRunChromo.rawFitness);
 			System.out.println("Best Run Assignment:  " + bestOfRunChromo.chromo + "\n");
 
 		} //End of a Run
@@ -346,10 +361,11 @@ public class Search {
 
 		problem.doPrintGenes(bestOverAllChromo, summaryOutput);
 
-		System.out.println("\nDesired Optimal Fitness:  " + Parameters.nbclauses);
+		System.out.println("\nNumber of Clauses:  " + Parameters.nbclauses);
 
 
-		System.out.println("\nBest Overall:  " + bestOverAllChromo.rawFitness);
+		System.out.println("\nBest Overall Fitness:  " + bestOverAllChromo.rawFitness);
+		System.out.println("Best Overall Number of Satisfied Clauses:  " + ((SAT)problem).getSatisfiedClausesCount(Parameters.CNF, bestOverAllChromo.chromo) );
 		System.out.println("Best Overal Assignment:  " + bestOverAllChromo.chromo);
 
 		//	Output Fitness Statistics matrix for last run

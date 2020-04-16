@@ -108,7 +108,7 @@ public class Chromo implements Comparable<Chromo> {
 				candidate[i] = (int) (Search.r.nextDouble() * Parameters.popSize);
 			for (int i = 3; i > 0; i--) {
 				for (j = 0; j < i; j++) {
-					if (Search.member[candidate[j]].proFitness > Search.member[candidate[j + 1]].proFitness) {
+					if (Search.member[candidate[j]].sclFitness > Search.member[candidate[j + 1]].sclFitness) {
 						temp = candidate[j];
 						candidate[j] = candidate[j + 1];
 						candidate[j + 1] = temp;

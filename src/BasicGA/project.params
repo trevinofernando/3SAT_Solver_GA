@@ -1,17 +1,17 @@
 Experiment ID                :SAT3_GA
 Problem Type                 :SAT
-Data Input File Name         :uf50-01.cnf
-Number of Runs               :1
-Generations per Run          :100
-Population Size              :500
+Data Input File Name         :uf75-01.cnf
+Number of Runs               :10
+Generations per Run          :200
+Population Size              :1000
 Selection Method (1)         :2
-Fitness Scaling Type (2)     :0
+Fitness Scaling Type (2)     :4
 Crossover Type (3)           :1
-Crossover Rate (4)           :0.9
+Crossover Rate (4)           :1
 Mutation Type (5)            :1
-Mutation Rate (6)            :0.001
+Mutation Rate (6)            :0.01
 Random Number Seed           :75982
-Number of Genes/Points (8)   :50
+Number of Genes/Points (8)   :75
 Size of Genes (9)            :1
 
 Notes:
@@ -24,6 +24,8 @@ Notes:
 							1 = Scale for Minimization (reciprocal of raw fitness)
 							2 = Rank for Maximization
 							3 = Rank for Minimization
+							4 = Subtract for Minimization
+							5 = Do nothing for Minimization
 
 3)  Crossover Type Codes    1 = Uniform Crossover (UX)
 
