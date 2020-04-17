@@ -96,7 +96,6 @@ public class Parameters {
 
 		parmInput.close();
 
-
 		try (BufferedReader br = new BufferedReader(new FileReader(dataInputFileName))) {
 			String line;
 			int clauseIndex = 0;
@@ -109,6 +108,7 @@ public class Parameters {
 					case 'p':
 						String[] token = line.split("[\\s]+");
 						nbvar = Integer.parseInt(token[2]);
+						numGenes = nbvar;
 						nbclauses = Integer.parseInt(token[3]);
 						CNF = new int[3 * nbclauses];
 						break;
@@ -116,7 +116,7 @@ public class Parameters {
 					case '%':
 					case '0':
 						break;
-				
+
 					default:
 						String[] vars = line.split("[\\s]+");
 						CNF[clauseIndex++] = Integer.parseInt(vars[0]);
@@ -126,7 +126,6 @@ public class Parameters {
 				}
 			}
 		}
-
 
 		if (scaleType == 0 || scaleType == 2)
 			minORmax = "max";
