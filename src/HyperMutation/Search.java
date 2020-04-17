@@ -333,6 +333,8 @@ public class Search {
 
 				// elitism flag is on when std dev is less than 10% of optimal solution
 				elitismFlag = (stdDevRawFitness < Parameters.nbclauses * 0.1);
+				if (elitismFlag)
+					System.out.println("G: " + G + " Elitism On \n");
 
 				System.out.println("Best Gen Assignment:  " + bestOfGenChromo.chromo + "\n");
 
