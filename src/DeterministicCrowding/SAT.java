@@ -103,6 +103,70 @@ public double getVariableViolations(int[] cnf, List<Integer> assignment){
     return violations;
 }
 
+public void doGreedySearch(Chromo X){
+    double fitness = X.rawFitness;
+    ArrayList<Integer> assignment = new ArrayList<Integer>(X.chromo);
+
+    for (int i = 0; i < Parameters.numGenes; i++) {
+        assignment.set(i, 1 - assignment.get(i));
+        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness < fitness) {
+            fitness = newFitness;
+        } else {
+            assignment.set(i, 1 - assignment.get(i));
+        }
+    }
+    X.chromo = assignment;
+    X.rawFitness = fitness;
+}
+
+public void doStochasticGreedySearch(Chromo X){
+    double fitness = X.rawFitness;
+    ArrayList<Integer> assignment = new ArrayList<Integer>(X.chromo);
+
+    for (int i = 0; i < Parameters.numGenes * 20; i++) {
+        int index1 = Search.r.nextInt(Parameters.numGenes);
+        int index2;
+        do {
+            index2 = Search.r.nextInt(Parameters.numGenes);
+        } while (index1 == index2);
+        assignment.set(index1, 1 - assignment.get(index1));
+        assignment.set(index2, 1 - assignment.get(index2));
+        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness < fitness) {
+            fitness = newFitness;
+        } else {
+            assignment.set(index1, 1 - assignment.get(index1));
+            assignment.set(index2, 1 - assignment.get(index2));
+        }
+    }
+    X.chromo = assignment;
+    X.rawFitness = fitness;
+}
+
+public void doStochasticGreedySearchV2(Chromo X){
+    double fitness = X.rawFitness;
+    int[] index = new int[20];
+    ArrayList<Integer> assignment = new ArrayList<Integer>(X.chromo);
+
+    for (int i = 0; i < Parameters.numGenes * 20; i++) {
+        for (int j = 0; j < Search.r.nextInt(index.length - 1) + 1; j++) {
+            index[j] = Search.r.nextInt(Parameters.numGenes);
+            assignment.set(index[j], 1 - assignment.get(index[j]));
+        }
+        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness < fitness) {
+            fitness = newFitness;
+        } else {
+            for (int j = 0; j < index.length; j++) {
+                assignment.set(index[j], 1 - assignment.get(index[j]));
+            }
+        }
+    }
+    X.chromo = assignment;
+    X.rawFitness = fitness;
+}
+
 //  COMPUTE A CHROMOSOME'S RAW FITNESS *************************************
 
 public void doRawFitness(Chromo X){

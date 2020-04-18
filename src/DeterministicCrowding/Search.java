@@ -135,6 +135,7 @@ public class Search {
 				sumRawFitness = 0;
 				bestOfGenChromo.rawFitness = defaultBest;
 
+				int bestIndex = 0;
 				//	Test Fitness of Each Member
 				for (int i=0; i<Parameters.popSize; i++){
 
@@ -144,6 +145,8 @@ public class Search {
 
 					problem.doRawFitness(member.get(i));
 
+					// ((SAT)problem).doGreedySearch(member.get(i));
+
 					sumRawFitness = sumRawFitness + member.get(i).rawFitness;
 					
 					if (Parameters.minORmax.equals("max")){
@@ -151,6 +154,7 @@ public class Search {
 							Chromo.copyB2A(bestOfGenChromo, member.get(i));
 							bestOfGenR = R;
 							bestOfGenG = G;
+							bestIndex = i;
 						}
 						if (member.get(i).rawFitness > bestOfRunChromo.rawFitness){
 							Chromo.copyB2A(bestOfRunChromo, member.get(i));
@@ -168,6 +172,7 @@ public class Search {
 							Chromo.copyB2A(bestOfGenChromo, member.get(i));
 							bestOfGenR = R;
 							bestOfGenG = G;
+							bestIndex = i;
 						}
 						if (member.get(i).rawFitness < bestOfRunChromo.rawFitness){
 							Chromo.copyB2A(bestOfRunChromo, member.get(i));
@@ -183,6 +188,16 @@ public class Search {
 				}
 
 				averageRawFitness = sumRawFitness / Parameters.popSize;
+
+				double t1 = bestOfGenChromo.rawFitness;
+
+				((SAT)problem).doGreedySearch(member.get(bestIndex));
+				//((SAT)problem).doStochasticGreedySearchV2(member.get(bestIndex));
+				Chromo.copyB2A(bestOfGenChromo, member.get(bestIndex));
+
+				if (bestOfGenChromo.rawFitness != t1) {
+					System.out.println("******************** " + t1 + " - " + bestOfGenChromo.rawFitness);
+				}
 				
 				genStatsBuilder.append(R + "," + G + "," + bestOfGenChromo.rawFitness + "," + averageRawFitness + "\n");
 
@@ -374,6 +389,9 @@ public class Search {
 				}
 
 			} //  Repeat the above loop for each generation
+
+			member.clear();
+			newMember.clear();
 
 			Hwrite.left(bestOfRunR, 4, summaryOutput);
 			Hwrite.right(bestOfRunG, 4, summaryOutput);
