@@ -293,34 +293,32 @@ public class Search {
 		// ************ CROSSOVER AND CREATE NEXT GENERATION *******************
 		// *********************************************************************
 
-				int parent1 = -1;
-				int parent2 = -1;
+				int parent1_index = -1;
+				int parent2_index = -1;
 
 				//  Assumes always two offspring per mating
 				for (int i=0; i<Parameters.popSize; i=i+2){
 
 					//	Select Two Parents
-					parent1 = Chromo.selectParent();
-					parent2 = parent1;
-					while (parent2 == parent1){
-						parent2 = Chromo.selectParent();
-					}
+					parent1_index = Chromo.selectParent();
+					parent2_index = Chromo.selectNeighborhoodParent(parent1_index);
+
+					Chromo.mateParents(member[parent1_index], member[parent2_index], child[parent1_index], child[parent2_index]);
+					child[parent1_index].doMutation();
+					child[parent2_index].doMutation();
+
 
 					//	Crossover Two Parents to Create Two Children
-					randnum = r.nextDouble();
-					if (randnum < Parameters.xoverRate){
-						Chromo.mateParents(parent1, parent2, member[parent1], member[parent2], child[i], child[i+1]);
-					}
-					else {
-						Chromo.mateParents(parent1, member[parent1], child[i]);
-						Chromo.mateParents(parent2, member[parent2], child[i+1]);
-					}
+					// randnum = r.nextDouble();
+					// if (randnum < Parameters.xoverRate){
+						
+					// }
+					// else {
+					// 	Chromo.mateParents(parent1_index, member[parent1_index], child[parent1_index]);
+					// 	Chromo.mateParents(parent2_index, member[parent2_index], child[parent2_index]);
+					// }
 				} // End Crossover
 
-				//	Mutate Children
-				for (int i=0; i<Parameters.popSize; i++){
-					child[i].doMutation();
-				}
 
 				//	Swap Children with Last Generation
 				for (int i=0; i<Parameters.popSize; i++){

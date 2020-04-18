@@ -353,7 +353,7 @@ public class Search {
 
 
 				// catasterophe
-				if (G % 100 == 0) {
+				if (G % 500 == 0) {
 					// member.clear();
 					for (int i=0; i<Parameters.popSize; i++){
 						if (r.nextDouble() < 0.9) {

@@ -22,6 +22,11 @@ public class Parameters {
 	public static int numRuns;
 	public static int generations;
 	public static int popSize;
+	public static int gridWidth;
+	public static int gridHeight;
+	public static int neighborhoodRadius;
+	public static int neighborhoodWidth;
+	public static int neighborCount;
 
 	public static int genCap;
 	public static int fitCap;
@@ -59,6 +64,11 @@ public class Parameters {
 		numRuns = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		generations = Integer.parseInt(parmInput.readLine().substring(30).trim());// per run
 		popSize = Integer.parseInt(parmInput.readLine().substring(30).trim());
+		gridWidth = Integer.parseInt(parmInput.readLine().substring(30).trim());
+		gridHeight = popSize / gridWidth;		
+		neighborhoodWidth = 2 * Parameters.neighborhoodRadius + 1;
+		neighborCount = neighborhoodWidth * neighborhoodWidth;
+		neighborhoodRadius = Integer.parseInt(parmInput.readLine().substring(30).trim());
 
 		selectType = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		// 1 = Proportional Selection

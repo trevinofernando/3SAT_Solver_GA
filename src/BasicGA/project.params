@@ -1,9 +1,10 @@
 Experiment ID                :SAT3_GA
 Problem Type                 :SAT
 Data Input File Name         :uf75-01.cnf
-Number of Runs               :10
-Generations per Run          :200
-Population Size              :1000
+Number of Extra Runs         :20
+Number of Runs               :200
+Generations per Run          :500
+Population Size              :500
 Selection Method (1)         :2
 Fitness Scaling Type (2)     :4
 Crossover Type (3)           :1

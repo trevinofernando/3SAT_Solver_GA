@@ -79,6 +79,19 @@ public class Chromo implements Comparable<Chromo> {
 	 * STATIC METHODS *
 	 *******************************************************************************/
 
+	public static int selectNeighborhoodParent(int parentIndex) {	
+		
+		int neighborParentIndex;
+
+		do {
+			int neighborIndex = Search.r.nextInt(Parameters.neighborCount);
+			int y = neighborIndex / Parameters.neighborhoodWidth - Parameters.neighborhoodRadius + parentIndex / Parameters.gridWidth;
+			int x = neighborIndex % Parameters.neighborhoodWidth - Parameters.neighborhoodRadius + parentIndex % Parameters.gridWidth;
+			neighborParentIndex = Math.floorMod(x , Parameters.gridWidth) + Parameters.gridWidth * Math.floorMod(y , Parameters.gridHeight);
+		} while (neighborParentIndex == parentIndex);
+
+		return neighborParentIndex;
+	}
 	// Select a parent for crossover ******************************************
 
 	public static int selectParent() {
@@ -140,7 +153,7 @@ public class Chromo implements Comparable<Chromo> {
 
 	// Produce a new child from two parents **********************************
 
-	public static void mateParents(int pnum1, int pnum2, Chromo parent1, Chromo parent2, Chromo child1, Chromo child2) {
+	public static void mateParents(Chromo parent1, Chromo parent2, Chromo child1, Chromo child2) {
 
 		switch (Parameters.xoverType) {
 

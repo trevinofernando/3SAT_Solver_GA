@@ -7,54 +7,53 @@ public class test {
         
     public static void main(String[] args) throws java.io.IOException {
 
-		int nbvar = 0, nbclauses = 0;
 		
-		int[] cnf = null;
-		String dataInputFileName = "uf20-01.cnf";
-		try (BufferedReader br = new BufferedReader(new FileReader(dataInputFileName))) {
-			String line;
-			int clauseIndex = 0;
-			while ((line = br.readLine()) != null) {
-				line = line.trim();
-				if (line.length() == 0) {
-					continue;
-				}
-				switch (line.charAt(0)) {
-					case 'p':
-						String[] token = line.split("[\\s]+");
-						nbvar = Integer.parseInt(token[2]);
-						nbclauses = Integer.parseInt(token[3]);
-						cnf = new int[3 * nbclauses];
-						break;
-					case 'c':
-					case '%':
-					case '0':
-						break;
-				
-					default:
-						String[] vars = line.split("[\\s]+");
-						cnf[clauseIndex++] = Integer.parseInt(vars[0]);
-						cnf[clauseIndex++] = Integer.parseInt(vars[1]);
-						cnf[clauseIndex++] = Integer.parseInt(vars[2]);
-						break;
-				}
-			}
-		}
-		SAT satProblem = new SAT();
-        
-		System.out.printf("nbvar: %d, nbclauses: %d\n", nbvar, nbclauses);
-		// for (int i = 0; i < satProblem.getCNF().length; i++) {
-		// 	System.out.println(satProblem.getCNF()[i]);
-		// }
+		int[] d1 = new int [48];
+		int width = 8;
+		int height = d1.length / width;
 
-		Random r = new Random();
-		ArrayList<Integer> assignment = new ArrayList<Integer>(20);
-		for (int i = 0; i < 20; i++) {
-			assignment.add(r.nextInt(2));
-			System.out.printf("%d, ", assignment.get(i));
+		for (int i = 0; i < d1.length; i++) {
+			d1[i] = i;
+		}
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				System.out.printf("(%2d, %2d) = %2d, ", i, j, d1[j + width * i]);
+			}
+			System.out.println();
 		}
 		System.out.println();
-		System.out.println(satProblem.getSatisfiedClausesCount(cnf, assignment));
+
+		// for (int i = 0; i < d1.length; i++) {
+		// 	System.out.printf("%d, ", d1[j + width * i]);
+		// }
+		int y = 0;
+		int x = 0;
+		int neighborSize = 2;
+		
+		System.out.printf("%d\n\n", d1[x + width * y]);
+
+		for (int i = y - neighborSize; i <= y + neighborSize; i++) {
+			for (int j = x - neighborSize; j <= x + neighborSize; j++) {
+				System.out.printf("(%2d, %2d) = %2d, ", i, j, d1[Math.floorMod(j , width) + width * Math.floorMod(i , height)]);
+			}
+			System.out.println();
+		}
+
+		int index = 0;
+		int neighborWidth = 2 * neighborSize + 1;
+		int neighborCount = neighborWidth * neighborWidth;
+		y = index / width;
+		x = index % width;
+		int rand =  (new Random()).nextInt(neighborCount);
+		System.out.printf("\nrand=%d, neighborCount=%d, y=%d, x=%d\n", rand, neighborCount, y, x);
+
+		
+		int y2 = rand / neighborWidth - neighborSize + index / width;
+		int x2 = rand % neighborWidth - neighborSize + index % width;
+
+		System.out.printf("\ny2=%d, x2=%d, 1D = %d\n", y2, x2, d1[Math.floorMod(x2 , width) + width * Math.floorMod(y2 , height)]);
+		
         
     }
 }

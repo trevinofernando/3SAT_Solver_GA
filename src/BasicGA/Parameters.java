@@ -20,6 +20,7 @@ public class Parameters {
 	public static String dataInputFileName;
 
 	public static int numRuns;
+	public static int numXRuns;
 	public static int generations;
 	public static int popSize;
 
@@ -56,6 +57,7 @@ public class Parameters {
 
 		dataInputFileName = parmInput.readLine().substring(30);
 
+		numXRuns = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		numRuns = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		generations = Integer.parseInt(parmInput.readLine().substring(30).trim());// per run
 		popSize = Integer.parseInt(parmInput.readLine().substring(30).trim());
