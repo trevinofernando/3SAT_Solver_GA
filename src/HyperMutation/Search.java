@@ -302,12 +302,13 @@ public class Search {
 					// When elitism flag is on, only the elites are allowed to reproduce
 					parent1 = Chromo.selectParent();
 					if (elitismFlag) {
-						while (member[parent1].rawFitness < averageRawFitness) {
+						while (member[parent1].rawFitness < averageRawFitness - stdDevRawFitness) {
 							parent1 = Chromo.selectParent();
 						}
 					}
 					parent2 = parent1;
-					while ((elitismFlag && member[parent2].rawFitness < averageRawFitness) || parent2 == parent1) {
+					while ((elitismFlag && member[parent2].rawFitness < averageRawFitness - stdDevRawFitness)
+							|| parent2 == parent1) {
 						parent2 = Chromo.selectParent();
 					}
 

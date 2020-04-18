@@ -63,7 +63,7 @@ public class Chromo implements Comparable<Chromo> {
 		// Elitism flag check
 		double mutationRate = (Search.elitismFlag && this.rawFitness > Search.averageRawFitness)
 				? Math.max((Parameters.nbclauses - Search.averageRawFitness) * 200 / Parameters.nbclauses,
-						Parameters.mutationRate)
+						2 * Parameters.mutationRate)
 				: Parameters.mutationRate;
 
 		switch (Parameters.mutationType) {
