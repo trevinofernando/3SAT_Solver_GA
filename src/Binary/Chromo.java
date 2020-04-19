@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class Chromo
+public class Chromo implements Comparable<Chromo>
 {
 /*******************************************************************************
 *                            INSTANCE VARIABLES                                *
@@ -49,6 +49,15 @@ public class Chromo
 /*******************************************************************************
 *                                MEMBER METHODS                                *
 *******************************************************************************/
+	@Override
+	public int compareTo(Chromo other) {
+		if (this.proFitness > other.proFitness) {
+			return 1;
+		} else if (this.proFitness < other.proFitness) {
+			return -1;
+		}
+		return 0;
+	}
 
 	//  Get Alpha Represenation of a Gene **************************************
 
