@@ -20,6 +20,7 @@ public class Parameters
 	public static String dataInputFileName;
 
 	public static int numRuns;
+	public static int numXRuns;
 	public static int generations;
 	public static int popSize;
 
@@ -29,6 +30,7 @@ public class Parameters
 	public static String minORmax;
 	public static int selectType;
 	public static int scaleType;
+	public static int fitnessFunct;
 
 	public static int xoverType;
 	public static double xoverRate;
@@ -60,12 +62,15 @@ public class Parameters
 
 		dataInputFileName = parmInput.readLine().substring(30);
 
+		numXRuns = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		numRuns = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		generations = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		popSize = Integer.parseInt(parmInput.readLine().substring(30).trim());
 
 		selectType = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		scaleType = Integer.parseInt(parmInput.readLine().substring(30).trim());
+
+		fitnessFunct = Integer.parseInt(parmInput.readLine().substring(30).trim());
 
 		xoverType = Integer.parseInt(parmInput.readLine().substring(30).trim());
 		xoverRate = Double.parseDouble(parmInput.readLine().substring(30).trim());
@@ -133,7 +138,7 @@ public class Parameters
 		output.write("Population Size              :  " + popSize + "\n");
 
 		output.write("Selection Method             :  " + selectType + "\n");
-		output.write("Fitness Scaling Type         :  " + scaleType + "\n");
+		output.write("Fitness Function             :  " + fitnessFunct + "\n");
 		output.write("Min or Max Fitness           :  " + minORmax + "\n");
 
 		output.write("Crossover Type               :  " + xoverType + "\n");
