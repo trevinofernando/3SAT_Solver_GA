@@ -1,6 +1,6 @@
 Experiment ID                :3SAT
 Problem Type                 :3SAT
-Data Input File Name         :../data/uf20-01.cnf
+Data Input File Name         :../data/uf50-01.cnf
 Number of Extra Runs         :10
 Number of Runs               :100
 Generations per Run          :500
@@ -11,7 +11,7 @@ Fitness Function (2.5)       :1
 Crossover Type (3)           :3
 Crossover Rate (4)           :0.8
 Mutation Type (5)            :1
-Mutation Rate (6)            :.025
+Mutation Rate (6)            :.01
 Random Number Seed           :75982
 Number of Genes/Points (7)   :8
 Size of Genes (8)            :9
