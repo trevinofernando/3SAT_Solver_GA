@@ -72,7 +72,7 @@ x_opt_rate_overall <- x_opt_rate %>%
 	summarize(bestRate = max(Rate), avgRate = mean(Rate), stdF = sd(Rate), GCI = (CI(Rate, ci = 0.95)[1] - CI(Rate, ci = 0.95)[2]))
 	
 x_opt_rate_overall <- replace(x_opt_rate_overall, is.na(x_opt_rate_overall), 0)
-x_opt_rate_overall[x_opt_rate_overall == -Inf || x_opt_rate_overall == -Inf] <- 0
+x_opt_rate_overall[x_opt_rate_overall == -Inf || x_opt_rate_overall == Inf] <- 0
 
 save(x_opt_rate_overall,file="rate125.Rda")
 	
