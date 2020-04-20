@@ -335,7 +335,7 @@ public class Search {
 					//Chromo.copyB2A(member[0], bestOfGenChromo);
 
 
-					if (bestOfGenChromo.rawFitness == 0) {
+					if (bestOfGenChromo.rawFitness == Parameters.nbclauses) {
 						successCount++;
 						System.out.println("\n------------------------\nFound Optimal - Early Stop");
 						System.out.println(R + "\t" + G +  "\t" + bestOfGenChromo.rawFitness + "\t" + averageRawFitness);
@@ -352,7 +352,7 @@ public class Search {
 
 				problem.doPrintGenes(bestOfRunChromo, summaryOutput);
 
-				System.out.println(R + "\t" + "B" + "\t"+ bestOfRunChromo.rawFitness);
+				System.out.println(XR + "\t" +R + "\t" + "B" + "\t"+ bestOfRunChromo.rawFitness);
 				System.out.println("Best Run Assignment:  " + bestOfRunChromo.chromo + "\n");
 
 			} //End of a Run
@@ -373,7 +373,7 @@ public class Search {
 
 
 		System.out.println("\nBest Overall Fitness:  " + bestOverAllChromo.rawFitness);
-		System.out.println("Best Overall Number of Satisfied Clauses:  " + ((SAT)problem).getSatisfiedClausesCount(Parameters.CNF, bestOverAllChromo.chromo) );
+		//System.out.println("Best Overall Number of Satisfied Clauses:  " + ((SAT)problem).getSatisfiedClausesCount(Parameters.CNF, bestOverAllChromo.chromo) );
 		System.out.println("Best Overal Assignment:  " + bestOverAllChromo.chromo);
 
 		//	Output Fitness Statistics matrix for last run

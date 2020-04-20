@@ -19,8 +19,8 @@ public class Parameters {
 
 	public static String dataInputFileName;
 
-	public static int numRuns;
 	public static int numXRuns;
+	public static int numRuns;
 	public static int generations;
 	public static int popSize;
 

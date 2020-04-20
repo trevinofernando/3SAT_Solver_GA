@@ -1,18 +1,18 @@
 Experiment ID                :SAT3_GA
 Problem Type                 :SAT
-Data Input File Name         :uf75-01.cnf
-Number of Extra Runs         :20
-Number of Runs               :200
+Data Input File Name         :uf200-01.cnf
+Number of Extra Runs         :10
+Number of Runs               :100
 Generations per Run          :500
 Population Size              :500
 Selection Method (1)         :2
-Fitness Scaling Type (2)     :4
+Fitness Scaling Type (2)     :0
 Crossover Type (3)           :1
 Crossover Rate (4)           :1
 Mutation Type (5)            :1
 Mutation Rate (6)            :0.01
 Random Number Seed           :75982
-Number of Genes/Points (8)   :75
+Number of Genes/Points (8)   :200
 Size of Genes (9)            :1
 
 Notes:

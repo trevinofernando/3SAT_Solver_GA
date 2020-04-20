@@ -109,8 +109,8 @@ public void doGreedySearch(Chromo X){
 
     for (int i = 0; i < Parameters.numGenes; i++) {
         assignment.set(i, 1 - assignment.get(i));
-        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
-        if (newFitness < fitness) {
+        double newFitness = getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness > fitness) {
             fitness = newFitness;
         } else {
             assignment.set(i, 1 - assignment.get(i));
@@ -132,8 +132,8 @@ public void doStochasticGreedySearch(Chromo X){
         } while (index1 == index2);
         assignment.set(index1, 1 - assignment.get(index1));
         assignment.set(index2, 1 - assignment.get(index2));
-        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
-        if (newFitness < fitness) {
+        double newFitness = getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness > fitness) {
             fitness = newFitness;
         } else {
             assignment.set(index1, 1 - assignment.get(index1));
@@ -154,8 +154,8 @@ public void doStochasticGreedySearchV2(Chromo X){
             index[j] = Search.r.nextInt(Parameters.numGenes);
             assignment.set(index[j], 1 - assignment.get(index[j]));
         }
-        double newFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, assignment);
-        if (newFitness < fitness) {
+        double newFitness = getSatisfiedClausesCount(Parameters.CNF, assignment);
+        if (newFitness > fitness) {
             fitness = newFitness;
         } else {
             for (int j = 0; j < index.length; j++) {
@@ -170,7 +170,7 @@ public void doStochasticGreedySearchV2(Chromo X){
 //  COMPUTE A CHROMOSOME'S RAW FITNESS *************************************
 
 public void doRawFitness(Chromo X){
-    X.rawFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, X.chromo);
+    X.rawFitness = getSatisfiedClausesCount(Parameters.CNF, X.chromo);
     //X.rawFitness = getVariableViolations(Parameters.CNF, X.chromo);
 }
 

@@ -106,8 +106,8 @@ public double getVariableViolations(int[] cnf, List<Integer> assignment){
 //  COMPUTE A CHROMOSOME'S RAW FITNESS *************************************
 
 public void doRawFitness(Chromo X){
-    //X.rawFitness = Parameters.nbclauses - getSatisfiedClausesCount(Parameters.CNF, X.chromo);
-    X.rawFitness = getVariableViolations(Parameters.CNF, X.chromo);
+    X.rawFitness = getSatisfiedClausesCount(Parameters.CNF, X.chromo);
+    //X.rawFitness = getVariableViolations(Parameters.CNF, X.chromo);
 }
 
 //  PRINT OUT AN INDIVIDUAL GENE TO THE SUMMARY FILE *********************************
