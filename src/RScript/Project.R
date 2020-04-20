@@ -26,17 +26,18 @@ x_avg <- rbind(x_avg_best, x_avg_avg)
 x_avg$Type <- as.factor(x_avg$Type)
 
 # 3-SAT Deterministic Crowding GA - Number of Variables = 200
+# 3-SAT Standard GA - Number of Variables = 20
 
 x_avg <- replace(x_avg, is.na(x_avg), 0)
 
 ggplot(x_avg, aes(x=G, y=F)) +
     geom_errorbar(aes(ymin=F-GCI, ymax=F+GCI, color = Type), size = 1, alpha = 0.5) +
 	geom_line(aes(group=Type), size = 0.3, color="black") +
-	labs(title="3-SAT Deterministic Crowding GA - Number of Variables = 200\nAverage and best fitness with 95% confidence intervals,\naveraged over 1000 runs", x ="Generation", y = "Fitness") + 
+	labs(title="3-SAT Standard GA - Number of Variables = 20\nAverage and best fitness with 95% confidence intervals,\naveraged over 1000 runs", x ="Generation", y = "Fitness") + 
 	scale_color_manual(values = c("blue", "red"))
 
 
-ggsave("3-SAT Deterministic Crowding GA - Number of Variables 200.png", width = 7, height = 4)
+ggsave("3-SAT Standard GA - Number of Variables 20.png", width = 7, height = 4)
 
 # -------------------------------------------------------------------------------------------------------------
 
@@ -73,17 +74,17 @@ x_opt_rate_overall <- x_opt_rate %>%
 x_opt_rate_overall <- replace(x_opt_rate_overall, is.na(x_opt_rate_overall), 0)
 x_opt_rate_overall[x_opt_rate_overall == -Inf] <- 0
 
-save(x_opt_rate_overall,file="rate200.Rda")
+save(x_opt_rate_overall,file="rate20.Rda")
 	
 # -------------------------------------------------------------------------------------------------------------
 
 x_opt_gen_overall <- x_opt %>% 
 	summarize(bestGen = min(G), avgGen = mean(G), stdGen = sd(G), GCI = (CI(G, ci = 0.95)[1] - CI(G, ci = 0.95)[2]))
 	
-x_opt_gen_overall <- replace(x_opt_rate_overall, is.na(x_opt_rate_overall), 0)
-x_opt_gen_overall[x_opt_rate_overall == -Inf] <- 0
+x_opt_gen_overall <- replace(x_opt_gen_overall, is.na(x_opt_gen_overall), 0)
+x_opt_gen_overall[x_opt_gen_overall == -Inf] <- 0
 
-save(x_opt_gen_overall,file="gen200.Rda")
+save(x_opt_gen_overall,file="gen20.Rda")
 		
 # -------------------------------------------------------------------------------------------------------------
 	
